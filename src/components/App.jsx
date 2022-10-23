@@ -22,9 +22,9 @@ export class App extends Component {
       if (contacts.find(({ name }) => name === values.name)) {
         return alert(`${values.name} is already in contacts`);
       }
-      values.id = this.generId();
+
       return {
-        contacts: [...contacts, values],
+        contacts: [...contacts, { id: this.generId(), ...values }],
       };
     });
   };
@@ -48,7 +48,6 @@ export class App extends Component {
   };
   render() {
     const contactsLength = this.state.contacts.length;
-    this.filterContacts();
     return (
       <PhoneBook>
         <ContactForm showName={this.updateContacts} />
