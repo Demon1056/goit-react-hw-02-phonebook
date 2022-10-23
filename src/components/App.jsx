@@ -3,6 +3,7 @@ import shortid from 'shortid';
 import { ContactForm } from './Form/Form';
 import { ContactList } from './ContactsList/ContactsList';
 import { Filter } from './Filter/Filter';
+import { PhoneBook, InformationArea } from './App.styled';
 export class App extends Component {
   state = {
     contacts: [
@@ -13,16 +14,17 @@ export class App extends Component {
     ],
     filter: '',
   };
+
   generId = () => shortid.generate();
   updateContacts = (values, actions) => {
-    this.setState(prevState => {
-      if (prevState.contacts.find(contact => contact.name === values.name)) {
+    actions.resetForm();
+    this.setState(({ contacts }) => {
+      if (contacts.find(({ name }) => name === values.name)) {
         return alert(`${values.name} is already in contacts`);
       }
       values.id = this.generId();
-      actions.resetForm();
       return {
-        contacts: [...prevState.contacts, values],
+        contacts: [...contacts, values],
       };
     });
   };
@@ -31,8 +33,9 @@ export class App extends Component {
       filter: e.currentTarget.value,
     });
   filterContacts = () => {
-    return this.state.contacts.filter(item =>
-      item.name.toUpperCase().includes(this.state.filter.toUpperCase())
+    const { contacts, filter } = this.state;
+    return contacts.filter(({ name }) =>
+      name.toUpperCase().includes(filter.toUpperCase())
     );
   };
   deleteContacts = item => {
@@ -44,19 +47,22 @@ export class App extends Component {
     });
   };
   render() {
+    const contactsLength = this.state.contacts.length;
     this.filterContacts();
     return (
-      <>
+      <PhoneBook>
         <ContactForm showName={this.updateContacts} />
-        <h2>CONTACTS</h2>
-        <Filter updateFilter={this.updateFilter} />
-        {this.state.contacts.length > 0 && (
-          <ContactList
-            data={this.filterContacts()}
-            deleteContact={this.deleteContacts}
-          />
-        )}
-      </>
+        <InformationArea>
+          <h2>CONTACTS</h2>
+          <Filter updateFilter={this.updateFilter} />
+          {contactsLength > 0 && (
+            <ContactList
+              data={this.filterContacts()}
+              deleteContact={this.deleteContacts}
+            />
+          )}
+        </InformationArea>
+      </PhoneBook>
     );
   }
 }

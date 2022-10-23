@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 export const Filter = ({ updateFilter }) => {
   return (
     <>
@@ -5,4 +6,7 @@ export const Filter = ({ updateFilter }) => {
       <input type="text" name="filter" onChange={updateFilter} />{' '}
     </>
   );
+};
+Filter.propTypes = {
+  updateFilter: PropTypes.func.isRequired,
 };

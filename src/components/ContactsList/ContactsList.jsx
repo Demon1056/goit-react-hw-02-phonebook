@@ -1,13 +1,19 @@
+import PropTypes from 'prop-types';
+import { ListItem } from './ContactsListStyled';
 export const ContactList = ({ data, deleteContact }) => {
   return (
     <ul>
       {data.map(item => (
-        <li key={item.id}>
+        <ListItem key={item.id}>
           {`${item.name} : ${item.number}`}
           <button onClick={() => deleteContact(item)}>Delete</button>
-        </li>
+        </ListItem>
       ))}
     </ul>
   );
 };
-// () => console.log(item.id)
+
+ContactList.propTypes = {
+  data: PropTypes.array.isRequired,
+  deleteContact: PropTypes.func.isRequired,
+};

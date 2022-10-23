@@ -1,11 +1,13 @@
-import { Formik, Form, Field } from 'formik';
+import PropTypes from 'prop-types';
+import { Formik } from 'formik';
+import { FormStyles, FieldStyles } from './Form.styled';
 export const ContactForm = ({ showName }) => {
   return (
     <Formik initialValues={{ name: '', number: '' }} onSubmit={showName}>
-      <Form>
+      <FormStyles>
         <label>
           Name
-          <Field
+          <FieldStyles
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -14,9 +16,8 @@ export const ContactForm = ({ showName }) => {
           />
         </label>
         <label>
-          {' '}
           Number
-          <Field
+          <FieldStyles
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -25,7 +26,10 @@ export const ContactForm = ({ showName }) => {
           />
         </label>
         <button type="submit">Add contact</button>
-      </Form>
+      </FormStyles>
     </Formik>
   );
+};
+ContactForm.propTypes = {
+  showName: PropTypes.func.isRequired,
 };
