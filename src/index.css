@@ -30,7 +30,7 @@ button{
   border-radius: 10%;
   border: 1px;
 }
-button:hover{
+button:hover, :focus {
   background-color: aqua;
   border: 1px solid aqua;
 }
@@ -39,8 +39,10 @@ input {
   width: 90%;
   border: 1px solid ;
   }
-  input:hover,
-  :focus{ 
+  input:hover, 
+:focus
+  { 
     border: 1px solid aqua;
+  
 
   }
